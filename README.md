@@ -36,14 +36,19 @@ poetry run updog
 
 ## Usage
 
-`updog [-d DIRECTORY] [-p PORT] [--password PASSWORD] [--ssl]`
+`updog [-d DIRECTORY] [-b ADDRESS] [-p PORT] [--password PASSWORD] [--ssl | --ssl-cert CERT --ssl-key KEY] [--cors] [--hide-base-path]`
 
 | Argument                            | Description                                      |
 |-------------------------------------|--------------------------------------------------| 
 | -d DIRECTORY, --directory DIRECTORY | Root directory [Default=.]                       | 
+| -b ADDRESS, --bind ADDRESS          | Bind to specific address [Default=0.0.0.0]       |
 | -p PORT, --port PORT                | Port to serve [Default=9090]                     |
 | --password PASSWORD                 | Use a password to access the page. (No username) |
-| --ssl                               | Enable transport encryption via SSL              |
+| --ssl                               | Enable SSL with ad-hoc certificate               |
+| --ssl-cert CERT                     | Path to custom SSL certificate                   |
+| --ssl-key KEY                       | Path to custom SSL private key                   |
+| --cors                              | Enable CORS headers                              |
+| --hide-base-path                    | Hide full directory path (show relative paths)   |
 | --version                           | Show version                                     |
 | -h, --help                          | Show help                                        |
 
@@ -69,9 +74,25 @@ poetry run updog
 To login, you should leave the username blank and just
 enter the password in the password field.
 
-**Use an SSL connection:**
+**Use an SSL connection (ad-hoc certificate):**
 
 `updog --ssl`
+
+**Use an SSL connection with custom certificates:**
+
+`updog --ssl-cert /path/to/cert.pem --ssl-key /path/to/key.pem`
+
+**Bind to a specific IP address:**
+
+`updog -b 192.168.1.10 -p 8080`
+
+**Enable CORS for web application testing:**
+
+`updog --cors`
+
+**Hide full directory paths (OpSec):**
+
+`updog --hide-base-path`
 
 ## Thanks
 
