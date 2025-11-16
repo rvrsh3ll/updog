@@ -1,0 +1,52 @@
+[tool.poetry]
+name = "updog"
+version = "2.0.0"
+description = "Updog is a replacement for Python's SimpleHTTPServer. It allows uploading and downloading via HTTP/S, can set ad hoc SSL certificates and use HTTP basic auth."
+authors = ["sc0tfree <henry@sc0tfree.com>"]
+license = "MIT"
+readme = "README.md"
+homepage = "https://github.com/sc0tfree/updog"
+repository = "https://github.com/sc0tfree/updog"
+keywords = ["HTTP", "server", "SimpleHTTPServer", "directory", "file-sharing"]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Console",
+    "Environment :: Web Environment",
+    "Framework :: Flask",
+    "Intended Audience :: Developers",
+    "Intended Audience :: System Administrators",
+    "License :: OSI Approved :: MIT License",
+    "Natural Language :: English",
+    "Operating System :: MacOS",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: POSIX",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Communications :: File Sharing",
+    "Topic :: Internet :: WWW/HTTP",
+    "Topic :: Internet :: WWW/HTTP :: WSGI",
+    "Topic :: Security"
+]
+packages = [
+    { include = "updog" }
+]
+include = ["updog/static/**/*", "updog/templates/**/*", "MANIFEST.in", "LICENSE"]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+colorama = "^0.4.6"
+flask = "^3.0"
+flask-httpauth = "^4.8.0"
+werkzeug = "^3.0"
+pyopenssl = "^24.0"
+flask-cors = "^6.0.1"
+
+[tool.poetry.scripts]
+updog = "updog.__main__:main"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
