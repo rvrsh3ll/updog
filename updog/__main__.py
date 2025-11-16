@@ -35,7 +35,9 @@ def parse_arguments():
     parser.add_argument('-p', '--port', type=int, default=9090,
                         help='Port to serve [Default=9090]')
     parser.add_argument('--password', type=str, default='', help='Use a password to access the page. (No username)')
-    parser.add_argument('--ssl', action='store_true', help='Use an encrypted connection')
+    parser.add_argument('--ssl', action='store_true', help='Use an encrypted connection (ad-hoc certificate)')
+    parser.add_argument('--ssl-cert', type=str, default=None, help='Path to SSL certificate file')
+    parser.add_argument('--ssl-key', type=str, default=None, help='Path to SSL key file')
     parser.add_argument('--cors', action='store_true', help='Enable CORS (Cross-Origin Resource Sharing)')
     parser.add_argument('--version', action='version', version='%(prog)s v'+VERSION)
 
@@ -183,6 +185,10 @@ def main():
     ssl_context = None
     if args.ssl:
         ssl_context = 'adhoc'
+    elif args.ssl_cert and args.ssl_key:
+        ssl_context = (args.ssl_cert, args.ssl_key)
+    elif args.ssl_cert or args.ssl_key:
+        error('Both --ssl-cert and --ssl-key must be provided together')
 
     run_simple(args.bind, int(args.port), app, ssl_context=ssl_context)
 
